@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
     Box,
     Button,
@@ -11,11 +11,15 @@ import {
     Theme,
     Typography,
 } from "@material-ui/core";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { client } from "../lib/client";
 import { SIGN_IN } from "../lib/mutations";
+import { ME } from "../lib/query";
 import { User } from "../models/User";
 
 const useStyled = makeStyles((theme: Theme) =>
@@ -57,12 +61,21 @@ const signin = (props: Props) => {
     const router = useRouter();
     const [message, setMessage] = useState<string | null>(null);
 
+    useQuery<{ me: User }, User>(ME, {
+        onCompleted: ({ me }) => {
+            if (me) router.push("/");
+        },
+        onError: (res) => {
+            console.log(res);
+        },
+    });
+
     const { control, handleSubmit, setError } = useForm<Signin>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
     });
 
-    const [signin, { error, loading }] = useMutation<{ signin: User }, Signin>(
+    const [signin, { loading, data }] = useMutation<{ signin: User }, Signin>(
         SIGN_IN,
         {
             onCompleted: ({ signin }) => {
