@@ -5,6 +5,8 @@ import {
     makeStyles,
     Theme,
     Toolbar,
+    Button,
+    ThemeProvider,
 } from "@material-ui/core";
 import React from "react";
 import ActiveLink from "../../../helpers/ActiveLink";
@@ -13,6 +15,12 @@ import HistoryIcon from "@material-ui/icons/History";
 import PaymentIcon from "@material-ui/icons/Payment";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useMutation, useQuery } from "@apollo/client";
+import { SIGN_OUT } from "../../../lib/mutations";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { User } from "../../../models/User";
+import { ME } from "../../../lib/query";
 
 interface Props {}
 
@@ -47,11 +55,38 @@ const useStyled = makeStyles((theme: Theme) =>
                 flexDirection: "column",
             },
         },
+        btnLink: {
+            "&:hover": {
+                backgroundColor: "transparent",
+            },
+            "&:active": {
+                backgroundColor: "transparent",
+            },
+        },
     })
 );
 
+interface Message {
+    message: string;
+}
+
 const SecondTopbar = (props: Props) => {
     const classes = useStyled();
+    const router = useRouter();
+
+    useQuery<{ me: User }, User>(ME, {
+        onError: ({ message }) => {
+            if (message) router.push("/signin");
+        },
+    });
+
+    const [signout] = useMutation<{ message: Message }, Message>(SIGN_OUT, {
+        onCompleted: () => router.push("/signin"),
+    });
+    const onclickHandler = async () => {
+        await signout();
+    };
+
     return (
         <AppBar position="static" color="secondary" className={classes.shadow}>
             <Box display="flex" justifyContent="center">
@@ -108,7 +143,12 @@ const SecondTopbar = (props: Props) => {
                             </div>
                         </div>
                     </ActiveLink>
-                    <ActiveLink href="/signin" as="/signin" underline="none">
+
+                    <Button
+                        className={classes.btnLink}
+                        disableTouchRipple
+                        onClick={onclickHandler}
+                    >
                         <div className={classes.layoutDesktopAndMobile}>
                             <ExitToAppIcon
                                 className={classes.sectionMobile}
@@ -118,7 +158,7 @@ const SecondTopbar = (props: Props) => {
                                 &nbsp;ออกจากระบบ
                             </div>
                         </div>
-                    </ActiveLink>
+                    </Button>
                 </Toolbar>
             </Box>
         </AppBar>

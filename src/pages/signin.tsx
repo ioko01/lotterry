@@ -65,9 +65,6 @@ const signin = (props: Props) => {
         onCompleted: ({ me }) => {
             if (me) router.push("/");
         },
-        onError: (res) => {
-            console.log(res);
-        },
     });
 
     const { control, handleSubmit, setError } = useForm<Signin>({

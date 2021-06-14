@@ -95,6 +95,24 @@ export const themeSecond = createMuiTheme({
     },
 });
 
+export const themeButtonNonStyled = createMuiTheme({
+    palette: {
+        primary: {
+            main: indigo[600],
+        },
+        secondary: {
+            main: red[400],
+        },
+    },
+    overrides: {
+        MuiTouchRipple: {
+            root: {
+                backgroundColor: "transparent",
+            },
+        },
+    },
+});
+
 export const themeButtonText = createMuiTheme({
     palette: {
         primary: {
