@@ -80,11 +80,11 @@ const SecondTopbar = (props: Props) => {
         },
     });
 
-    const [signout] = useMutation<{ message: Message }, Message>(SIGN_OUT, {
-        onCompleted: () => router.push("/signin"),
-    });
+    const [signout] = useMutation<{ message: Message }, Message>(SIGN_OUT);
+    
     const onclickHandler = async () => {
-        await signout();
+        const response = await signout();
+        if (response.data.message) router.push("/signin");
     };
 
     return (
