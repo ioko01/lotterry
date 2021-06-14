@@ -76,7 +76,7 @@ const SecondTopbar = (props: Props) => {
 
     useQuery<{ me: User }, User>(ME, {
         onError: ({ message }) => {
-            if (message) router.push("/signin");
+            console.log(message);
         },
     });
 
