@@ -3,10 +3,10 @@ import { SigninStateAction } from "../models/signin";
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 
-export const signin = (): SigninStateAction => ({
+export const loginState = (): SigninStateAction => ({
     type: SIGN_IN,
 });
 
-export const signout = (): SigninStateAction => ({
+export const logoutState = (): SigninStateAction => ({
     type: SIGN_OUT,
 });

@@ -1,7 +1,7 @@
 import { Action } from "redux";
 
 export interface Signin {
-    isLoggedin: boolean;
+    isLoggedin: boolean | null;
 }
 
 export interface SigninMap {
@@ -9,7 +9,7 @@ export interface SigninMap {
 }
 
 export interface SigninState {
-    isLoggedin: boolean;
+    isLoggedin: boolean | null;
 }
 
 export interface SigninStateAction extends Action {

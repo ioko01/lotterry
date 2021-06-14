@@ -1,201 +1,25 @@
-import { useMutation, useQuery } from "@apollo/client";
-import {
-    Box,
-    Button,
-    createStyles,
-    FormControl,
-    Grid,
-    makeStyles,
-    Paper,
-    TextField,
-    Theme,
-    Typography,
-} from "@material-ui/core";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useContext, useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { client } from "../lib/client";
-import { SIGN_IN } from "../lib/mutations";
+import { AuthContext } from "../context/authContextProvider";
 import { ME } from "../lib/query";
 import { User } from "../models/User";
-import { login } from "../redux/actions/signinAction";
+import { loginState, logoutState } from "../redux/actions/signinAction";
 import { SigninMap } from "../redux/models/signin";
-
-const useStyled = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100%",
-            height: "100vh",
-        },
-        marginXauto: {
-            marginInline: "auto",
-        },
-        textCenter: {
-            textAlign: "center",
-        },
-        formStyle: {
-            padding: theme.spacing(2),
-        },
-        signinHeader: {
-            padding: theme.spacing(2),
-        },
-        textFieldStyle: {
-            paddingBottom: theme.spacing(2),
-        },
-    })
-);
+import SigninComponent from "./components/SigninComponents/SigninComponent";
 
 interface Props extends PropsFromRedux {}
 
-interface Signin {
-    username: string;
-    password: string;
-}
-
-const signin = ({ isLoggedin, login }: Props) => {
-    const classes = useStyled();
+const signin = ({ isLoggedin, loginState, logoutState }: Props) => {
+    const { isLogin, errors, status } = useContext(AuthContext);
     const router = useRouter();
-    const [message, setMessage] = useState<string | null>(null);
 
     useEffect(() => {
-        if (isLoggedin) router.push("/");
-    }, [isLoggedin]);
+        if (status === "SUCCESS") router.push("/");
+    }, [status]);
 
-    useQuery<{ me: User }, User>(ME, {
-        onCompleted: ({ me }) => {
-            if (me) login();
-        },
-    });
-
-    const { control, handleSubmit, setError } = useForm<Signin>({
-        mode: "onSubmit",
-        reValidateMode: "onSubmit",
-    });
-
-    const [signin, { loading }] = useMutation<{ signin: User }, Signin>(
-        SIGN_IN,
-        {
-            onCompleted: ({ signin }) => {
-                if (signin) login();
-            },
-            onError: (res) => {
-                if (res.message) setMessage(res.message);
-            },
-        }
-    );
-
-    const onSubmit = async ({ username, password }: Signin) => {
-        try {
-            if (!username)
-                setError("username", {
-                    type: "validate",
-                    message: "username is invalid",
-                });
-            if (!password)
-                setError("password", {
-                    type: "validate",
-                    message: "password is invalid",
-                });
-
-            await signin({
-                variables: {
-                    username,
-                    password,
-                },
-            });
-        } catch (error) {}
-    };
-
-    return (
-        <Box className={classes.root}>
-            <Grid container>
-                <Grid item xs={8} md={6} className={classes.marginXauto}>
-                    <Paper className={classes.textCenter}>
-                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                            <FormControl
-                                className={classes.formStyle}
-                                variant="outlined"
-                                fullWidth
-                            >
-                                <Typography
-                                    color="textPrimary"
-                                    component="h1"
-                                    variant="h1"
-                                    className={classes.signinHeader}
-                                >
-                                    SIGNIN
-                                </Typography>
-
-                                <Controller
-                                    name="username"
-                                    control={control}
-                                    defaultValue="superadmin"
-                                    render={({
-                                        field: { onChange, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <TextField
-                                            className={classes.textFieldStyle}
-                                            variant="outlined"
-                                            label="USERNAME"
-                                            error={!!error}
-                                            helperText={
-                                                error ? error.message : null
-                                            }
-                                            onChange={onChange}
-                                            value={value}
-                                        />
-                                    )}
-                                />
-
-                                <Controller
-                                    name="password"
-                                    control={control}
-                                    defaultValue="superadmin"
-                                    render={({
-                                        field: { onChange, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <TextField
-                                            className={classes.textFieldStyle}
-                                            variant="outlined"
-                                            label="PASSWORD"
-                                            error={!!error}
-                                            helperText={
-                                                error ? error.message : null
-                                            }
-                                            type="password"
-                                            onChange={onChange}
-                                            value={value}
-                                        />
-                                    )}
-                                />
-
-                                <Typography color="error">
-                                    {loading ? "LOADING" : message}
-                                </Typography>
-                                <Button
-                                    color="primary"
-                                    type="submit"
-                                    variant="contained"
-                                    disabled={loading}
-                                >
-                                    {loading ? "LOADING" : "SIGNIN"}
-                                </Button>
-                            </FormControl>
-                        </form>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Box>
-    );
+    return status === "LOADING" ? <>LOADING</> : <SigninComponent />;
 };
 
 const mapStateProps = ({ isLoggedin }: SigninMap) => ({
@@ -203,7 +27,8 @@ const mapStateProps = ({ isLoggedin }: SigninMap) => ({
 });
 
 const mapDispatchProps = {
-    login,
+    loginState,
+    logoutState,
 };
 
 const connector = connect(mapStateProps, mapDispatchProps);

@@ -21,9 +21,12 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "../../../models/User";
 import { ME } from "../../../lib/query";
-import { logout } from "../../../redux/actions/signinAction";
+import { logoutState } from "../../../redux/actions/signinAction";
 import { SigninMap } from "../../../redux/models/signin";
 import { connect, ConnectedProps } from "react-redux";
+import { GetStaticProps } from "next";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/authContextProvider";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -73,28 +76,20 @@ interface Message {
 
 interface Props extends PropsFromRedux {}
 
-const SecondTopbar = ({ isLoggedin, logout }: Props) => {
+const SecondTopbar = ({ isLoggedin, logoutState }: Props) => {
     const classes = useStyled();
     const router = useRouter();
+    const { setAuthUser } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (!isLoggedin) router.push("/signin");
-    }, [isLoggedin]);
-
-    useQuery<{ me: User }, User>(ME, {
-        onError: ({ message }) => {
-            if (message) logout();
-        },
-    });
-
-    const [signout] = useMutation<{ signout: Message }, Message>(SIGN_OUT, {
-        onCompleted: ({ signout }) => {
-            if (signout.message) logout();
-        },
-    });
+    const [signout] = useMutation<{ signout: Message }, Message>(SIGN_OUT);
 
     const onclickHandler = async () => {
-        await signout();
+        const response = await signout();
+        if (response.data.signout) {
+            setAuthUser(null);
+            window.localStorage.setItem("signout", Date.now().toString());
+            router.push("/signin");
+        }
     };
 
     return (
@@ -180,7 +175,7 @@ const mapStateProps = ({ isLoggedin }: SigninMap) => ({
 });
 
 const mapDispatchProps = {
-    logout,
+    logoutState,
 };
 
 const connector = connect(mapStateProps, mapDispatchProps);

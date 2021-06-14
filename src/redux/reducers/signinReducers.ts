@@ -2,7 +2,7 @@ import { SigninStateAction, SigninState } from "./../models/signin";
 import { SIGN_IN, SIGN_OUT } from "../actions/signinAction";
 
 const initialState: SigninState = {
-    isLoggedin: false,
+    isLoggedin: null,
 };
 
 const signinReducers = (

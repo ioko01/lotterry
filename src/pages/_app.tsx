@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { themePrimary } from "../../styles/style";
 import { client } from "../lib/client";
 import { wrapper } from "../redux/strore";
+import AuthContextProvider from "../context/authContextProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
@@ -18,11 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <ApolloProvider client={client}>
-            <ThemeProvider theme={themePrimary}>
-                <CssBaseline>
-                    <Component {...pageProps} />
-                </CssBaseline>
-            </ThemeProvider>
+            <AuthContextProvider>
+                <ThemeProvider theme={themePrimary}>
+                    <CssBaseline>
+                        <Component {...pageProps} />
+                    </CssBaseline>
+                </ThemeProvider>
+            </AuthContextProvider>
         </ApolloProvider>
     );
 }
