@@ -72,11 +72,11 @@ const signin = (props: Props) => {
         reValidateMode: "onSubmit",
     });
 
-    const [signin, { loading, data }] = useMutation<{ signin: User }, Signin>(
+    const [signin, { loading }] = useMutation<{ signin: User }, Signin>(
         SIGN_IN,
         {
             onCompleted: ({ signin }) => {
-                if (signin) router.replace("/");
+                if (signin) router.push("/");
             },
             onError: (res) => {
                 if (res.message) setMessage(res.message);
