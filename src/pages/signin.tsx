@@ -17,10 +17,13 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { connect, ConnectedProps } from "react-redux";
 import { client } from "../lib/client";
 import { SIGN_IN } from "../lib/mutations";
 import { ME } from "../lib/query";
 import { User } from "../models/User";
+import { login } from "../redux/actions/signinAction";
+import { SigninMap } from "../redux/models/signin";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,21 +52,25 @@ const useStyled = makeStyles((theme: Theme) =>
     })
 );
 
-interface Props {}
+interface Props extends PropsFromRedux {}
 
 interface Signin {
     username: string;
     password: string;
 }
 
-const signin = (props: Props) => {
+const signin = ({ isLoggedin, login }: Props) => {
     const classes = useStyled();
     const router = useRouter();
     const [message, setMessage] = useState<string | null>(null);
 
+    useEffect(() => {
+        if (isLoggedin) router.push("/");
+    }, [isLoggedin]);
+
     useQuery<{ me: User }, User>(ME, {
         onCompleted: ({ me }) => {
-            if (me) router.replace("/");
+            if (me) login();
         },
     });
 
@@ -76,7 +83,7 @@ const signin = (props: Props) => {
         SIGN_IN,
         {
             onCompleted: ({ signin }) => {
-                if (signin) router.replace("/");
+                if (signin) login();
             },
             onError: (res) => {
                 if (res.message) setMessage(res.message);
@@ -191,4 +198,16 @@ const signin = (props: Props) => {
     );
 };
 
-export default signin;
+const mapStateProps = ({ isLoggedin }: SigninMap) => ({
+    isLoggedin: isLoggedin.isLoggedin,
+});
+
+const mapDispatchProps = {
+    login,
+};
+
+const connector = connect(mapStateProps, mapDispatchProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(signin);

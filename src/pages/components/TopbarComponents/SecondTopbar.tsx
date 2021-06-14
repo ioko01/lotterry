@@ -21,8 +21,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "../../../models/User";
 import { ME } from "../../../lib/query";
-
-interface Props {}
+import { logout } from "../../../redux/actions/signinAction";
+import { SigninMap } from "../../../redux/models/signin";
+import { connect, ConnectedProps } from "react-redux";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -70,19 +71,25 @@ interface Message {
     message: string;
 }
 
-const SecondTopbar = (props: Props) => {
+interface Props extends PropsFromRedux {}
+
+const SecondTopbar = ({ isLoggedin, logout }: Props) => {
     const classes = useStyled();
     const router = useRouter();
 
+    useEffect(() => {
+        if (!isLoggedin) router.push("/signin");
+    }, [isLoggedin]);
+
     useQuery<{ me: User }, User>(ME, {
         onError: ({ message }) => {
-            if (message) router.replace("/signin");
+            if (message) logout();
         },
     });
 
     const [signout] = useMutation<{ signout: Message }, Message>(SIGN_OUT, {
         onCompleted: ({ signout }) => {
-            if (signout.message) router.replace("/signin");
+            if (signout.message) logout();
         },
     });
 
@@ -168,4 +175,16 @@ const SecondTopbar = (props: Props) => {
     );
 };
 
-export default SecondTopbar;
+const mapStateProps = ({ isLoggedin }: SigninMap) => ({
+    isLoggedin: isLoggedin.isLoggedin,
+});
+
+const mapDispatchProps = {
+    logout,
+};
+
+const connector = connect(mapStateProps, mapDispatchProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(SecondTopbar);
