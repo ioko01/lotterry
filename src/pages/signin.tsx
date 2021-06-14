@@ -63,7 +63,7 @@ const signin = (props: Props) => {
 
     useQuery<{ me: User }, User>(ME, {
         onCompleted: ({ me }) => {
-            if (me) router.push("/");
+            if (me) router.replace("/");
         },
     });
 
@@ -76,7 +76,7 @@ const signin = (props: Props) => {
         SIGN_IN,
         {
             onCompleted: ({ signin }) => {
-                if (signin) router.push("/");
+                if (signin) router.replace("/");
             },
             onError: (res) => {
                 if (res.message) setMessage(res.message);

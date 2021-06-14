@@ -76,13 +76,13 @@ const SecondTopbar = (props: Props) => {
 
     useQuery<{ me: User }, User>(ME, {
         onError: ({ message }) => {
-            if (message) router.push("/signin");
+            if (message) router.replace("/signin");
         },
     });
 
     const [signout] = useMutation<{ signout: Message }, Message>(SIGN_OUT, {
         onCompleted: ({ signout }) => {
-            if (signout.message) router.push("/signin");
+            if (signout.message) router.replace("/signin");
         },
     });
 
