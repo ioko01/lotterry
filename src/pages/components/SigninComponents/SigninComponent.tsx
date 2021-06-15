@@ -29,6 +29,8 @@ const useStyled = makeStyles((theme: Theme) =>
             alignItems: "center",
             minHeight: "100%",
             height: "100vh",
+            WebkitJustifyContent: "center",
+            WebkitAlignItems: "center",
         },
         marginXauto: {
             marginInline: "auto",
