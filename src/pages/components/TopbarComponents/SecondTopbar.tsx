@@ -6,7 +6,6 @@ import {
     Theme,
     Toolbar,
     Button,
-    ThemeProvider,
 } from "@material-ui/core";
 import React from "react";
 import ActiveLink from "../../../helpers/ActiveLink";
@@ -15,16 +14,10 @@ import HistoryIcon from "@material-ui/icons/History";
 import PaymentIcon from "@material-ui/icons/Payment";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { SIGN_OUT } from "../../../lib/mutations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { User } from "../../../models/User";
-import { ME } from "../../../lib/query";
-import { logoutState } from "../../../redux/actions/signinAction";
-import { SigninMap } from "../../../redux/models/signin";
-import { connect, ConnectedProps } from "react-redux";
-import { GetStaticProps } from "next";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/authContextProvider";
 import Loading from "../Loading";
@@ -75,9 +68,7 @@ interface Message {
     message: string;
 }
 
-interface Props extends PropsFromRedux {}
-
-const SecondTopbar = ({ isLoggedin, logoutState }: Props) => {
+const SecondTopbar = () => {
     const classes = useStyled();
     const router = useRouter();
     const { setAuthUser, status } = useContext(AuthContext);
@@ -185,16 +176,4 @@ const SecondTopbar = ({ isLoggedin, logoutState }: Props) => {
     );
 };
 
-const mapStateProps = ({ isLoggedin }: SigninMap) => ({
-    isLoggedin: isLoggedin.isLoggedin,
-});
-
-const mapDispatchProps = {
-    logoutState,
-};
-
-const connector = connect(mapStateProps, mapDispatchProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(SecondTopbar);
+export default SecondTopbar;

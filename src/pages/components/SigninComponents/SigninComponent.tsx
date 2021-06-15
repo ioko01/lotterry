@@ -179,7 +179,7 @@ const SigninComponent = () => {
                                         variant="contained"
                                         disabled={loading}
                                     >
-                                        {loading ? "LOADING" : "SIGNIN"}
+                                        SIGNIN
                                     </Button>
                                 </FormControl>
                             </form>
