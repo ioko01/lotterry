@@ -105,8 +105,8 @@ const SigninComponent = () => {
         <>
             {loading ? <Loading loading={loading} /> : null}
             <Box className={classes.root}>
-                <Grid container>
-                    <Grid item xs={8} md={6} className={classes.marginXauto}>
+                <Grid container justify="center">
+                    <Grid item xs={8} md={6}>
                         <Paper className={classes.textCenter}>
                             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                 <FormControl
