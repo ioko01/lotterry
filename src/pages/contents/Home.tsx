@@ -2,17 +2,14 @@ import {
     Box,
     Button,
     createStyles,
-    FormControl,
     makeStyles,
     TextField,
     Theme,
     Typography,
 } from "@material-ui/core";
-import { GetServerSideProps } from "next";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { LottoryDigit } from "../../types/lottoryDigit";
-import LottoList from "../components/CartComponents/LottoList";
-import LayoutContent from "./Layout/LayoutContent";
+import LottoList from "../components/HomeComponents/LottoList";
 
 interface Props {}
 

@@ -70,7 +70,7 @@ const LottoList = ({ digit, number, addCart }: Props) => {
                     item
                     xs={6}
                     sm={4}
-                    md={3}
+                    md={4}
                     xl={2}
                     className={`${classes.gridSpace}`}
                 >

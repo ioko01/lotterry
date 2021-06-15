@@ -10,10 +10,13 @@ import {
 import React from "react";
 import ActiveLink from "../../../helpers/ActiveLink";
 import HomeIcon from "@material-ui/icons/Home";
-import HistoryIcon from "@material-ui/icons/History";
-import PaymentIcon from "@material-ui/icons/Payment";
-import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import PersonIcon from "@material-ui/icons/Person";
+import NoteIcon from "@material-ui/icons/Note";
+import PaymentIcon from "@material-ui/icons/Payment";
+import HistoryIcon from "@material-ui/icons/History";
 import { useMutation } from "@apollo/client";
 import { SIGN_OUT } from "../../../lib/mutations";
 import { useRouter } from "next/router";
@@ -21,6 +24,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/authContextProvider";
 import Loading from "../Loading";
+import { pages } from "../../../helpers/pages";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -68,15 +72,13 @@ interface Message {
     message: string;
 }
 
-const SecondTopbar = () => {
+const SecondNavigationbar = () => {
     const classes = useStyled();
     const router = useRouter();
     const { setAuthUser, status } = useContext(AuthContext);
 
     const [signout, { loading }] =
         useMutation<{ signout: Message }, Message>(SIGN_OUT);
-
-    useEffect(() => {}, [loading]);
 
     const onclickHandler = async () => {
         const response = await signout();
@@ -97,62 +99,57 @@ const SecondTopbar = () => {
             >
                 <Box display="flex" justifyContent="center">
                     <Toolbar className={classes.root}>
-                        <ActiveLink href="/" as="/" underline="none">
-                            <div className={classes.layoutDesktopAndMobile}>
-                                <HomeIcon
-                                    className={classes.sectionMobile}
-                                    titleAccess="หน้าหลัก"
-                                />
-                                <div className={classes.sectionDesktop}>
-                                    &nbsp;หน้าหลัก
+                        {pages.map((page, index) => (
+                            <ActiveLink
+                                key={index}
+                                href={page.path}
+                                as={page.as}
+                                underline="none"
+                            >
+                                <div className={classes.layoutDesktopAndMobile}>
+                                    {page.name === "หน้าหลัก" ? (
+                                        <HomeIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "ประวัติการซื้อ" ? (
+                                        <HistoryIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "บัญชีการเงิน" ? (
+                                        <PaymentIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "ข้อมูลผู้ใช้" ? (
+                                        <PersonIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "เพิ่มลูกทีม" ? (
+                                        <PersonAddIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "เพิ่มล็อตเตอรี่" ? (
+                                        <AddShoppingCartIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "สลากทั้งหมด" ? (
+                                        <NoteIcon
+                                            className={classes.sectionMobile}
+                                            titleAccess={page.name}
+                                        />
+                                    ) : null}
+
+                                    <div className={classes.sectionDesktop}>
+                                        &nbsp;{page.name}
+                                    </div>
                                 </div>
-                            </div>
-                        </ActiveLink>
-                        <ActiveLink
-                            href="/buyhistory"
-                            as="/buyhistory"
-                            underline="none"
-                        >
-                            <div className={classes.layoutDesktopAndMobile}>
-                                <HistoryIcon
-                                    className={classes.sectionMobile}
-                                    titleAccess="ประวัติการซื้อ"
-                                />
-                                <div className={classes.sectionDesktop}>
-                                    &nbsp;ประวัติการซื้อ
-                                </div>
-                            </div>
-                        </ActiveLink>
-                        <ActiveLink
-                            href="/balances"
-                            as="/balances"
-                            underline="none"
-                        >
-                            <div className={classes.layoutDesktopAndMobile}>
-                                <PaymentIcon
-                                    className={classes.sectionMobile}
-                                    titleAccess="บัญชีการเงิน"
-                                />
-                                <div className={classes.sectionDesktop}>
-                                    &nbsp;บัญชีการเงิน
-                                </div>
-                            </div>
-                        </ActiveLink>
-                        <ActiveLink
-                            href="/account"
-                            as="/account"
-                            underline="none"
-                        >
-                            <div className={classes.layoutDesktopAndMobile}>
-                                <PersonIcon
-                                    className={classes.sectionMobile}
-                                    titleAccess="ข้อมูลผู้ใช้"
-                                />
-                                <div className={classes.sectionDesktop}>
-                                    &nbsp;ข้อมูลผู้ใช้
-                                </div>
-                            </div>
-                        </ActiveLink>
+                            </ActiveLink>
+                        ))}
 
                         <Button
                             className={classes.btnLink}
@@ -176,4 +173,4 @@ const SecondTopbar = () => {
     );
 };
 
-export default SecondTopbar;
+export default SecondNavigationbar;

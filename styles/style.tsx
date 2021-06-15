@@ -32,7 +32,6 @@ export const themePrimary = createMuiTheme({
         },
         MuiLink: {
             root: {
-                padding: 2,
                 color: common["black"],
                 "&.link-active": {
                     color: lightGreen[700],
@@ -137,6 +136,46 @@ export const themeButtonClose = createMuiTheme({
                     border: "none",
                 },
                 border: "none",
+            },
+        },
+    },
+});
+
+export const themeListLink = createMuiTheme({
+    overrides: {
+        MuiLink: {
+            root: {
+                color: common["black"],
+                "&.link-active ul": {
+                    color: lightGreen[700],
+                    backgroundColor: lightGreen[50],
+                },
+                "&:hover ul": {
+                    backgroundColor: lightGreen[100],
+                },
+                "&:active ul": {
+                    backgroundColor: lightGreen[200],
+                },
+            },
+        },
+        MuiButton: {
+            root: {
+                color: red[400],
+                width: "100%",
+                paddingLeft: 0,
+                paddingRight: 0,
+                "&:hover": {
+                    backgroundColor: red[50],
+                },
+                "&:active": {
+                    backgroundColor: red[100],
+                },
+            },
+            text: {
+                padding: 0,
+            },
+            label: {
+                justifyContent: "start",
             },
         },
     },
