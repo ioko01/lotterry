@@ -13,16 +13,13 @@ import {
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React from "react";
-import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { connect, ConnectedProps } from "react-redux";
 import { AuthContext } from "../../../context/authContextProvider";
 import { SIGN_IN } from "../../../lib/mutations";
 import { User } from "../../../models/User";
-import { loginState } from "../../../redux/actions/signinAction";
-import { SigninMap } from "../../../redux/models/signin";
+import Loading from "../Loading";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,14 +48,12 @@ const useStyled = makeStyles((theme: Theme) =>
     })
 );
 
-interface Props extends PropsFromRedux {}
-
 interface Signin {
     username: string;
     password: string;
 }
 
-const SigninComponent = ({ isLoggedin, loginState }: Props) => {
+const SigninComponent = () => {
     const classes = useStyled();
     const [message, setMessage] = useState<string | null>(null);
     const router = useRouter();
@@ -105,100 +100,95 @@ const SigninComponent = ({ isLoggedin, loginState }: Props) => {
     };
 
     return (
-        <Box className={classes.root}>
-            <Grid container>
-                <Grid item xs={8} md={6} className={classes.marginXauto}>
-                    <Paper className={classes.textCenter}>
-                        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                            <FormControl
-                                className={classes.formStyle}
-                                variant="outlined"
-                                fullWidth
-                            >
-                                <Typography
-                                    color="textPrimary"
-                                    component="h1"
-                                    variant="h1"
-                                    className={classes.signinHeader}
+        <>
+            {loading ? <Loading loading={loading} /> : null}
+            <Box className={classes.root}>
+                <Grid container>
+                    <Grid item xs={8} md={6} className={classes.marginXauto}>
+                        <Paper className={classes.textCenter}>
+                            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                                <FormControl
+                                    className={classes.formStyle}
+                                    variant="outlined"
+                                    fullWidth
                                 >
-                                    SIGNIN
-                                </Typography>
+                                    <Typography
+                                        color="textPrimary"
+                                        component="h1"
+                                        variant="h1"
+                                        className={classes.signinHeader}
+                                    >
+                                        SIGNIN
+                                    </Typography>
 
-                                <Controller
-                                    name="username"
-                                    control={control}
-                                    defaultValue="superadmin"
-                                    render={({
-                                        field: { onChange, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <TextField
-                                            className={classes.textFieldStyle}
-                                            variant="outlined"
-                                            label="USERNAME"
-                                            error={!!error}
-                                            helperText={
-                                                error ? error.message : null
-                                            }
-                                            onChange={onChange}
-                                            value={value}
-                                        />
-                                    )}
-                                />
+                                    <Controller
+                                        name="username"
+                                        control={control}
+                                        defaultValue="superadmin"
+                                        render={({
+                                            field: { onChange, value },
+                                            fieldState: { error },
+                                        }) => (
+                                            <TextField
+                                                className={
+                                                    classes.textFieldStyle
+                                                }
+                                                variant="outlined"
+                                                label="USERNAME"
+                                                error={!!error}
+                                                helperText={
+                                                    error ? error.message : null
+                                                }
+                                                onChange={onChange}
+                                                value={value}
+                                            />
+                                        )}
+                                    />
 
-                                <Controller
-                                    name="password"
-                                    control={control}
-                                    defaultValue="superadmin"
-                                    render={({
-                                        field: { onChange, value },
-                                        fieldState: { error },
-                                    }) => (
-                                        <TextField
-                                            className={classes.textFieldStyle}
-                                            variant="outlined"
-                                            label="PASSWORD"
-                                            error={!!error}
-                                            helperText={
-                                                error ? error.message : null
-                                            }
-                                            type="password"
-                                            onChange={onChange}
-                                            value={value}
-                                        />
-                                    )}
-                                />
+                                    <Controller
+                                        name="password"
+                                        control={control}
+                                        defaultValue="superadmin"
+                                        render={({
+                                            field: { onChange, value },
+                                            fieldState: { error },
+                                        }) => (
+                                            <TextField
+                                                className={
+                                                    classes.textFieldStyle
+                                                }
+                                                variant="outlined"
+                                                label="PASSWORD"
+                                                error={!!error}
+                                                helperText={
+                                                    error ? error.message : null
+                                                }
+                                                type="password"
+                                                onChange={onChange}
+                                                value={value}
+                                            />
+                                        )}
+                                    />
 
-                                <Typography color="error">
-                                    {loading ? "LOADING" : message}
-                                </Typography>
-                                <Button
-                                    color="primary"
-                                    type="submit"
-                                    variant="contained"
-                                    disabled={loading}
-                                >
-                                    {loading ? "LOADING" : "SIGNIN"}
-                                </Button>
-                            </FormControl>
-                        </form>
-                    </Paper>
+                                    <Typography color="error">
+                                        {!loading ? message : null}
+                                    </Typography>
+                                    <Button
+                                        color="primary"
+                                        type="submit"
+                                        variant="contained"
+                                        disabled={loading}
+                                    >
+                                        {loading ? "LOADING" : "SIGNIN"}
+                                    </Button>
+                                </FormControl>
+                            </form>
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+        </>
     );
 };
 
-const mapStateProps = ({ isLoggedin }: SigninMap) => ({
-    isLoggedin: isLoggedin.isLoggedin,
-});
-
-const mapDispatchProps = {
-    loginState,
-};
-
-const connector = connect(mapStateProps, mapDispatchProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-export default connector(SigninComponent);
+export default SigninComponent;

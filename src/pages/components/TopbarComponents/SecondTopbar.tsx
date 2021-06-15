@@ -27,6 +27,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { GetStaticProps } from "next";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/authContextProvider";
+import Loading from "../Loading";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -79,9 +80,12 @@ interface Props extends PropsFromRedux {}
 const SecondTopbar = ({ isLoggedin, logoutState }: Props) => {
     const classes = useStyled();
     const router = useRouter();
-    const { setAuthUser } = useContext(AuthContext);
+    const { setAuthUser, status } = useContext(AuthContext);
 
-    const [signout] = useMutation<{ signout: Message }, Message>(SIGN_OUT);
+    const [signout, { loading }] =
+        useMutation<{ signout: Message }, Message>(SIGN_OUT);
+
+    useEffect(() => {}, [loading]);
 
     const onclickHandler = async () => {
         const response = await signout();
@@ -93,80 +97,91 @@ const SecondTopbar = ({ isLoggedin, logoutState }: Props) => {
     };
 
     return (
-        <AppBar position="static" color="secondary" className={classes.shadow}>
-            <Box display="flex" justifyContent="center">
-                <Toolbar className={classes.root}>
-                    <ActiveLink href="/" as="/" underline="none">
-                        <div className={classes.layoutDesktopAndMobile}>
-                            <HomeIcon
-                                className={classes.sectionMobile}
-                                titleAccess="หน้าหลัก"
-                            />
-                            <div className={classes.sectionDesktop}>
-                                &nbsp;หน้าหลัก
+        <>
+            {loading ? <Loading loading={loading} /> : null}
+            <AppBar
+                position="static"
+                color="secondary"
+                className={classes.shadow}
+            >
+                <Box display="flex" justifyContent="center">
+                    <Toolbar className={classes.root}>
+                        <ActiveLink href="/" as="/" underline="none">
+                            <div className={classes.layoutDesktopAndMobile}>
+                                <HomeIcon
+                                    className={classes.sectionMobile}
+                                    titleAccess="หน้าหลัก"
+                                />
+                                <div className={classes.sectionDesktop}>
+                                    &nbsp;หน้าหลัก
+                                </div>
                             </div>
-                        </div>
-                    </ActiveLink>
-                    <ActiveLink
-                        href="/buyhistory"
-                        as="/buyhistory"
-                        underline="none"
-                    >
-                        <div className={classes.layoutDesktopAndMobile}>
-                            <HistoryIcon
-                                className={classes.sectionMobile}
-                                titleAccess="ประวัติการซื้อ"
-                            />
-                            <div className={classes.sectionDesktop}>
-                                &nbsp;ประวัติการซื้อ
+                        </ActiveLink>
+                        <ActiveLink
+                            href="/buyhistory"
+                            as="/buyhistory"
+                            underline="none"
+                        >
+                            <div className={classes.layoutDesktopAndMobile}>
+                                <HistoryIcon
+                                    className={classes.sectionMobile}
+                                    titleAccess="ประวัติการซื้อ"
+                                />
+                                <div className={classes.sectionDesktop}>
+                                    &nbsp;ประวัติการซื้อ
+                                </div>
                             </div>
-                        </div>
-                    </ActiveLink>
-                    <ActiveLink
-                        href="/balances"
-                        as="/balances"
-                        underline="none"
-                    >
-                        <div className={classes.layoutDesktopAndMobile}>
-                            <PaymentIcon
-                                className={classes.sectionMobile}
-                                titleAccess="บัญชีการเงิน"
-                            />
-                            <div className={classes.sectionDesktop}>
-                                &nbsp;บัญชีการเงิน
+                        </ActiveLink>
+                        <ActiveLink
+                            href="/balances"
+                            as="/balances"
+                            underline="none"
+                        >
+                            <div className={classes.layoutDesktopAndMobile}>
+                                <PaymentIcon
+                                    className={classes.sectionMobile}
+                                    titleAccess="บัญชีการเงิน"
+                                />
+                                <div className={classes.sectionDesktop}>
+                                    &nbsp;บัญชีการเงิน
+                                </div>
                             </div>
-                        </div>
-                    </ActiveLink>
-                    <ActiveLink href="/account" as="/account" underline="none">
-                        <div className={classes.layoutDesktopAndMobile}>
-                            <PersonIcon
-                                className={classes.sectionMobile}
-                                titleAccess="ข้อมูลผู้ใช้"
-                            />
-                            <div className={classes.sectionDesktop}>
-                                &nbsp;ข้อมูลผู้ใช้
+                        </ActiveLink>
+                        <ActiveLink
+                            href="/account"
+                            as="/account"
+                            underline="none"
+                        >
+                            <div className={classes.layoutDesktopAndMobile}>
+                                <PersonIcon
+                                    className={classes.sectionMobile}
+                                    titleAccess="ข้อมูลผู้ใช้"
+                                />
+                                <div className={classes.sectionDesktop}>
+                                    &nbsp;ข้อมูลผู้ใช้
+                                </div>
                             </div>
-                        </div>
-                    </ActiveLink>
+                        </ActiveLink>
 
-                    <Button
-                        className={classes.btnLink}
-                        disableTouchRipple
-                        onClick={onclickHandler}
-                    >
-                        <div className={classes.layoutDesktopAndMobile}>
-                            <ExitToAppIcon
-                                className={classes.sectionMobile}
-                                titleAccess="ออกจากระบบ"
-                            />
-                            <div className={classes.sectionDesktop}>
-                                &nbsp;ออกจากระบบ
+                        <Button
+                            className={classes.btnLink}
+                            disableTouchRipple
+                            onClick={onclickHandler}
+                        >
+                            <div className={classes.layoutDesktopAndMobile}>
+                                <ExitToAppIcon
+                                    className={classes.sectionMobile}
+                                    titleAccess="ออกจากระบบ"
+                                />
+                                <div className={classes.sectionDesktop}>
+                                    &nbsp;ออกจากระบบ
+                                </div>
                             </div>
-                        </div>
-                    </Button>
-                </Toolbar>
-            </Box>
-        </AppBar>
+                        </Button>
+                    </Toolbar>
+                </Box>
+            </AppBar>
+        </>
     );
 };
 

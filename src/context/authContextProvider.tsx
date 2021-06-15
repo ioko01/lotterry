@@ -54,7 +54,7 @@ const authContextProvider = ({ children }: Props) => {
             if (e.key === "signout") {
                 // Log user out
                 setIsLogin(null);
-                setStatus("NULL");
+                setStatus("LOADING");
 
                 // Push user to home page
                 Router.replace("/signin");
