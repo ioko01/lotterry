@@ -149,7 +149,9 @@ const Navigationbar = (props: Props) => {
                 }
             });
             return returnPage;
-        } catch (error) {}
+        } catch (error) {
+            return null;
+        }
     });
 
     const drawer = (

@@ -128,7 +128,9 @@ const SecondNavigationbar = () => {
                 }
             });
             return returnPage;
-        } catch (error) {}
+        } catch (error) {
+            return null;
+        }
     });
 
     return (
