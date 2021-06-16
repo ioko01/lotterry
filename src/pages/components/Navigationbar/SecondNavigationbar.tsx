@@ -100,7 +100,7 @@ const SecondNavigationbar = () => {
                 <Box display="flex" justifyContent="center">
                     <Toolbar className={classes.root}>
                         {pages.map((page, index) =>
-                            page.role.find((res) => isLogin.role == res) ? (
+                            page.role.find((res) => isLogin.role === res) ? (
                                 <ActiveLink
                                     key={index}
                                     href={page.path}

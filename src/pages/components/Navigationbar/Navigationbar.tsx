@@ -111,7 +111,7 @@ const Navigationbar = (props: Props) => {
             <ThemeProvider theme={themeListLink}>
                 <Divider />
                 {pages.map((page, index) =>
-                    page.role.find((res) => isLogin.role == res) ? (
+                    page.role.find((res) => isLogin.role === res) ? (
                         <ActiveLink
                             key={index}
                             href={page.path}
