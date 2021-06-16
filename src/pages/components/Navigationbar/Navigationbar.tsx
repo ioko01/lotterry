@@ -105,12 +105,7 @@ const Navigationbar = (props: Props) => {
     };
 
     const link = pages.map((page, index) => {
-        const findRoles = page.role.find((res) => {
-            return isLogin.role === res;
-        });
-
-        if (findRoles) {
-        }
+        
     });
 
     const drawer = (

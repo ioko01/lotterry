@@ -86,12 +86,7 @@ const SecondNavigationbar = () => {
     };
 
     const link = pages.map((page, index) => {
-        const findRoles = page.role.find((res) => {
-            return isLogin.role === res;
-        });
-
-        if (findRoles) {
-        }
+        
     });
 
     return (
