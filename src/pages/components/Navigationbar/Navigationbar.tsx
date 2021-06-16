@@ -86,7 +86,7 @@ const Navigationbar = (props: Props) => {
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const router = useRouter();
-    const { setAuthUser, status } = useContext(AuthContext);
+    const { setAuthUser, isLogin } = useContext(AuthContext);
 
     const [signout, { loading }] =
         useMutation<{ signout: Message }, Message>(SIGN_OUT);
@@ -110,42 +110,46 @@ const Navigationbar = (props: Props) => {
             <div className={classes.toolbar} />
             <ThemeProvider theme={themeListLink}>
                 <Divider />
-                {pages.map((page, index) => (
-                    <ActiveLink
-                        key={index}
-                        href={page.path}
-                        as={page.as}
-                        underline="none"
-                    >
-                        <List>
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                paddingX={2}
-                            >
-                                {page.name === "หน้าหลัก" ? (
-                                    <HomeIcon titleAccess={page.name} />
-                                ) : page.name === "ประวัติการซื้อ" ? (
-                                    <HistoryIcon titleAccess={page.name} />
-                                ) : page.name === "บัญชีการเงิน" ? (
-                                    <PaymentIcon titleAccess={page.name} />
-                                ) : page.name === "ข้อมูลผู้ใช้" ? (
-                                    <PersonIcon titleAccess={page.name} />
-                                ) : page.name === "เพิ่มลูกทีม" ? (
-                                    <PersonAddIcon titleAccess={page.name} />
-                                ) : page.name === "เพิ่มล็อตเตอรี่" ? (
-                                    <AddShoppingCartIcon
-                                        titleAccess={page.name}
-                                    />
-                                ) : page.name === "สลากทั้งหมด" ? (
-                                    <NoteIcon titleAccess={page.name} />
-                                ) : null}
+                {pages.map((page, index) =>
+                    page.role.filter((res) => isLogin.role === res) ? (
+                        <ActiveLink
+                            key={index}
+                            href={page.path}
+                            as={page.as}
+                            underline="none"
+                        >
+                            <List>
+                                <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    paddingX={2}
+                                >
+                                    {page.name === "หน้าหลัก" ? (
+                                        <HomeIcon titleAccess={page.name} />
+                                    ) : page.name === "ประวัติการซื้อ" ? (
+                                        <HistoryIcon titleAccess={page.name} />
+                                    ) : page.name === "บัญชีการเงิน" ? (
+                                        <PaymentIcon titleAccess={page.name} />
+                                    ) : page.name === "ข้อมูลผู้ใช้" ? (
+                                        <PersonIcon titleAccess={page.name} />
+                                    ) : page.name === "เพิ่มลูกทีม" ? (
+                                        <PersonAddIcon
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "เพิ่มล็อตเตอรี่" ? (
+                                        <AddShoppingCartIcon
+                                            titleAccess={page.name}
+                                        />
+                                    ) : page.name === "สลากทั้งหมด" ? (
+                                        <NoteIcon titleAccess={page.name} />
+                                    ) : null}
 
-                                <div>&nbsp;{page.name}</div>
-                            </Box>
-                        </List>
-                    </ActiveLink>
-                ))}
+                                    <div>&nbsp;{page.name}</div>
+                                </Box>
+                            </List>
+                        </ActiveLink>
+                    ) : null
+                )}
 
                 <Divider />
                 <Button disableTouchRipple onClick={onclickHandler}>

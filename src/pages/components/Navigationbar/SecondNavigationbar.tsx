@@ -75,7 +75,7 @@ interface Message {
 const SecondNavigationbar = () => {
     const classes = useStyled();
     const router = useRouter();
-    const { setAuthUser, status } = useContext(AuthContext);
+    const { setAuthUser, isLogin } = useContext(AuthContext);
 
     const [signout, { loading }] =
         useMutation<{ signout: Message }, Message>(SIGN_OUT);
@@ -99,57 +99,77 @@ const SecondNavigationbar = () => {
             >
                 <Box display="flex" justifyContent="center">
                     <Toolbar className={classes.root}>
-                        {pages.map((page, index) => (
-                            <ActiveLink
-                                key={index}
-                                href={page.path}
-                                as={page.as}
-                                underline="none"
-                            >
-                                <div className={classes.layoutDesktopAndMobile}>
-                                    {page.name === "หน้าหลัก" ? (
-                                        <HomeIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "ประวัติการซื้อ" ? (
-                                        <HistoryIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "บัญชีการเงิน" ? (
-                                        <PaymentIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "ข้อมูลผู้ใช้" ? (
-                                        <PersonIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "เพิ่มลูกทีม" ? (
-                                        <PersonAddIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "เพิ่มล็อตเตอรี่" ? (
-                                        <AddShoppingCartIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : page.name === "สลากทั้งหมด" ? (
-                                        <NoteIcon
-                                            className={classes.sectionMobile}
-                                            titleAccess={page.name}
-                                        />
-                                    ) : null}
+                        {pages.map((page, index) =>
+                            page.role.filter((res) => isLogin.role === res) ? (
+                                <ActiveLink
+                                    key={index}
+                                    href={page.path}
+                                    as={page.as}
+                                    underline="none"
+                                >
+                                    <div
+                                        className={
+                                            classes.layoutDesktopAndMobile
+                                        }
+                                    >
+                                        {page.name === "หน้าหลัก" ? (
+                                            <HomeIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "ประวัติการซื้อ" ? (
+                                            <HistoryIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "บัญชีการเงิน" ? (
+                                            <PaymentIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "ข้อมูลผู้ใช้" ? (
+                                            <PersonIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "เพิ่มลูกทีม" ? (
+                                            <PersonAddIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "เพิ่มล็อตเตอรี่" ? (
+                                            <AddShoppingCartIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : page.name === "สลากทั้งหมด" ? (
+                                            <NoteIcon
+                                                className={
+                                                    classes.sectionMobile
+                                                }
+                                                titleAccess={page.name}
+                                            />
+                                        ) : null}
 
-                                    <div className={classes.sectionDesktop}>
-                                        &nbsp;{page.name}
+                                        <div className={classes.sectionDesktop}>
+                                            &nbsp;{page.name}
+                                        </div>
                                     </div>
-                                </div>
-                            </ActiveLink>
-                        ))}
+                                </ActiveLink>
+                            ) : null
+                        )}
 
                         <Button
                             className={classes.btnLink}
