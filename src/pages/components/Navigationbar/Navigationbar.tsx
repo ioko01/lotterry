@@ -106,7 +106,7 @@ const Navigationbar = (props: Props) => {
 
     const link = pages.map((page, index) => {
         try {
-            const isPages = page.role.find((res) => {
+            const returnPage = page.role.map((res) => {
                 if (isLogin.role === res) {
                     return (
                         <ActiveLink
@@ -148,7 +148,7 @@ const Navigationbar = (props: Props) => {
                     );
                 }
             });
-            return isPages;
+            return returnPage;
         } catch (error) {
             return null;
         }
