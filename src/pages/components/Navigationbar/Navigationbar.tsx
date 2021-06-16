@@ -111,7 +111,7 @@ const Navigationbar = (props: Props) => {
             <ThemeProvider theme={themeListLink}>
                 <Divider />
                 {pages.map((page, index) =>
-                    page.role.find((res) => isLogin.role === res) ? (
+                    page.role.map((res) => isLogin.role === res) ? (
                         <ActiveLink
                             key={index}
                             href={page.path}
@@ -142,13 +142,13 @@ const Navigationbar = (props: Props) => {
                                         />
                                     ) : page.name === "สลากทั้งหมด" ? (
                                         <NoteIcon titleAccess={page.name} />
-                                    ) : null}
+                                    ) : undefined}
 
                                     <div>&nbsp;{page.name}</div>
                                 </Box>
                             </List>
                         </ActiveLink>
-                    ) : null
+                    ) : undefined
                 )}
 
                 <Divider />

@@ -140,14 +140,14 @@ const SecondNavigationbar = () => {
                                                 }
                                                 titleAccess={page.name}
                                             />
-                                        ) : null}
+                                        ) : undefined}
 
                                         <div className={classes.sectionDesktop}>
                                             &nbsp;{page.name}
                                         </div>
                                     </div>
                                 </ActiveLink>
-                            ) : null
+                            ) : undefined
                         )}
 
                         <Button
