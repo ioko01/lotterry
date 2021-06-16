@@ -104,7 +104,7 @@ const Navigationbar = (props: Props) => {
         }
     };
 
-    const link = pages.map((page, index) =>
+    const link = pages.forEach((page, index) =>
         page.role.find((res) => isLogin.role === res) ? (
             <ActiveLink
                 key={index}

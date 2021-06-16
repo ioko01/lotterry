@@ -68,6 +68,10 @@ const useStyled = makeStyles((theme: Theme) =>
     })
 );
 
+const pageLinks = () => {
+    return;
+};
+
 interface Message {
     message: string;
 }
@@ -89,7 +93,7 @@ const SecondNavigationbar = () => {
         }
     };
 
-    const link = pages.map((page, index) =>
+    const link = pages.forEach((page, index) =>
         page.role.find((res) => isLogin.role === res) ? (
             <ActiveLink
                 key={index}
