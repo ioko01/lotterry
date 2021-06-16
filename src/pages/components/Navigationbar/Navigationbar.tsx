@@ -110,28 +110,7 @@ const Navigationbar = (props: Props) => {
             <div className={classes.toolbar} />
             <ThemeProvider theme={themeListLink}>
                 <Divider />
-                {pages.map((page, index) =>
-                    page.role.map((res) => isLogin.role === res) ? (
-                        <ActiveLink
-                            key={index}
-                            href={page.path}
-                            as={page.as}
-                            underline="none"
-                        >
-                            <List>
-                                <Box
-                                    display="flex"
-                                    alignItems="center"
-                                    paddingX={2}
-                                >
-                                    
-
-                                    <div>&nbsp;{page.name}</div>
-                                </Box>
-                            </List>
-                        </ActiveLink>
-                    ) : null
-                )}
+                
 
                 <Divider />
                 <Button disableTouchRipple onClick={onclickHandler}>

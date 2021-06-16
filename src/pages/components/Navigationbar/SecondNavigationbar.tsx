@@ -99,28 +99,7 @@ const SecondNavigationbar = () => {
             >
                 <Box display="flex" justifyContent="center">
                     <Toolbar className={classes.root}>
-                        {pages.map((page, index) =>
-                            page.role.find((res) => isLogin.role === res) ? (
-                                <ActiveLink
-                                    key={index}
-                                    href={page.path}
-                                    as={page.as}
-                                    underline="none"
-                                >
-                                    <div
-                                        className={
-                                            classes.layoutDesktopAndMobile
-                                        }
-                                    >
-                                        
-
-                                        <div className={classes.sectionDesktop}>
-                                            &nbsp;{page.name}
-                                        </div>
-                                    </div>
-                                </ActiveLink>
-                            ) : null
-                        )}
+                        
 
                         <Button
                             className={classes.btnLink}
