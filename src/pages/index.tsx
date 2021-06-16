@@ -4,8 +4,6 @@ import { AuthContext } from "../context/authContextProvider";
 import Home from "./contents/Home";
 import LayoutContent from "./contents/Layout/LayoutContent";
 import Loading from "./components/Loading";
-import { isAuthorization } from "../helpers/Authrization";
-import Navigationbar from "./components/Navigationbar/Navigationbar";
 
 const index = () => {
     const { status, errors } = useContext(AuthContext);

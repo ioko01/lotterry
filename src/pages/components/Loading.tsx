@@ -1,7 +1,7 @@
 import { createStyles, Grid, Theme } from "@material-ui/core";
 import { Modal, Paper, Zoom, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React, { useEffect } from "react";
+import React from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContextProvider";
 

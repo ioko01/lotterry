@@ -11,16 +11,12 @@ import React from "react";
 import ActiveLink from "../../../helpers/ActiveLink";
 import HomeIcon from "@material-ui/icons/Home";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
-import NoteIcon from "@material-ui/icons/Note";
 import PaymentIcon from "@material-ui/icons/Payment";
 import HistoryIcon from "@material-ui/icons/History";
 import { useMutation } from "@apollo/client";
 import { SIGN_OUT } from "../../../lib/mutations";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/authContextProvider";
 import Loading from "../Loading";
@@ -67,10 +63,6 @@ const useStyled = makeStyles((theme: Theme) =>
         },
     })
 );
-
-const pageLinks = () => {
-    return;
-};
 
 interface Message {
     message: string;
