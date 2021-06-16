@@ -86,7 +86,48 @@ const SecondNavigationbar = () => {
     };
 
     const link = pages.map((page, index) => {
-        
+        const findRoles = page["role"].find((res) => {
+            return isLogin.role === res;
+        });
+
+        if (findRoles) {
+            return (
+                <ActiveLink
+                    key={index}
+                    href={page.path}
+                    as={page.as}
+                    underline="none"
+                >
+                    <div className={classes.layoutDesktopAndMobile}>
+                        {page.name === "หน้าหลัก" ? (
+                            <HomeIcon
+                                className={classes.sectionMobile}
+                                titleAccess={page.name}
+                            />
+                        ) : page.name === "ประวัติการซื้อ" ? (
+                            <HistoryIcon
+                                className={classes.sectionMobile}
+                                titleAccess={page.name}
+                            />
+                        ) : page.name === "บัญชีการเงิน" ? (
+                            <PaymentIcon
+                                className={classes.sectionMobile}
+                                titleAccess={page.name}
+                            />
+                        ) : page.name === "ข้อมูลผู้ใช้" ? (
+                            <PersonIcon
+                                className={classes.sectionMobile}
+                                titleAccess={page.name}
+                            />
+                        ) : null}
+
+                        <div className={classes.sectionDesktop}>
+                            &nbsp;{page.name}
+                        </div>
+                    </div>
+                </ActiveLink>
+            );
+        }
     });
 
     return (
