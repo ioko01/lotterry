@@ -1,15 +1,17 @@
-import React from 'react'
+import React from "react";
+import LayoutContent from "./contents/Layout/LayoutContent";
+import AddUserPage from "./contents/AddUserContents/AddUserPage";
 
-interface Props {
-    
-}
+interface Props {}
 
 const adduser = (props: Props) => {
     return (
-        <div>
-            adduser
-        </div>
-    )
-}
+        <>
+            <LayoutContent>
+                <AddUserPage />
+            </LayoutContent>
+        </>
+    );
+};
 
-export default adduser
+export default adduser;

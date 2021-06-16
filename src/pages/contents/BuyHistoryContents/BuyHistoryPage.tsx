@@ -86,11 +86,7 @@ const BuyHistoryPage = (props: Props) => {
         setOpen(false);
     };
 
-    return (
-        <>
-            <BuyHistory />
-        </>
-    );
+    return <BuyHistory />;
 };
 
 export default BuyHistoryPage;

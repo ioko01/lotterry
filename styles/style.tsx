@@ -19,6 +19,9 @@ export const themePrimary = createMuiTheme({
                     padding: 0,
                     margin: 0,
                 },
+                body: {
+                    minWidth: 650,
+                },
                 "input[type=number]::-webkit-inner-spin-button": {
                     WebkitAppearance: "none",
                 },

@@ -87,7 +87,7 @@ const SecondNavigationbar = () => {
 
     const link = pages.map((page, index) => {
         try {
-            const returnPage = page.role.map((res) => {
+            const isPages = page.role.map((res) => {
                 if (isLogin.role === res) {
                     return (
                         <ActiveLink
@@ -127,7 +127,7 @@ const SecondNavigationbar = () => {
                     );
                 }
             });
-            return returnPage;
+            return isPages;
         } catch (error) {
             return null;
         }
