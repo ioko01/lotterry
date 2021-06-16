@@ -110,20 +110,6 @@ const Navigationbar = (props: Props) => {
         });
 
         if (findRoles) {
-            return (
-                <ActiveLink
-                    key={index}
-                    href={page.path}
-                    as={page.as}
-                    underline="none"
-                >
-                    <List>
-                        <Box display="flex" alignItems="center" paddingX={2}>
-                            <div>&nbsp;{page.name}</div>
-                        </Box>
-                    </List>
-                </ActiveLink>
-            );
         }
     });
 

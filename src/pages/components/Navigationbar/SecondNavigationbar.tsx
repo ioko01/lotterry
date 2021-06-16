@@ -91,20 +91,6 @@ const SecondNavigationbar = () => {
         });
 
         if (findRoles) {
-            return (
-                <ActiveLink
-                    key={index}
-                    href={page.path}
-                    as={page.as}
-                    underline="none"
-                >
-                    <div className={classes.layoutDesktopAndMobile}>
-                        <div className={classes.sectionDesktop}>
-                            &nbsp;{page.name}
-                        </div>
-                    </div>
-                </ActiveLink>
-            );
         }
     });
 
