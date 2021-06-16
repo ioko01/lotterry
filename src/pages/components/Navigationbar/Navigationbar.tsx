@@ -119,22 +119,6 @@ const Navigationbar = (props: Props) => {
                 >
                     <List>
                         <Box display="flex" alignItems="center" paddingX={2}>
-                            {page.name === "หน้าหลัก" ? (
-                                <HomeIcon titleAccess={page.name} />
-                            ) : page.name === "ประวัติการซื้อ" ? (
-                                <HistoryIcon titleAccess={page.name} />
-                            ) : page.name === "บัญชีการเงิน" ? (
-                                <PaymentIcon titleAccess={page.name} />
-                            ) : page.name === "ข้อมูลผู้ใช้" ? (
-                                <PersonIcon titleAccess={page.name} />
-                            ) : page.name === "เพิ่มลูกทีม" ? (
-                                <PersonAddIcon titleAccess={page.name} />
-                            ) : page.name === "เพิ่มล็อตเตอรี่" ? (
-                                <AddShoppingCartIcon titleAccess={page.name} />
-                            ) : page.name === "สลากทั้งหมด" ? (
-                                <NoteIcon titleAccess={page.name} />
-                            ) : null}
-
                             <div>&nbsp;{page.name}</div>
                         </Box>
                     </List>
