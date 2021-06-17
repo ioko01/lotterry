@@ -172,7 +172,7 @@ const AddUserPage = ({ selectedDisabled }: Props) => {
                                                 <Select
                                                     labelId="label-role-id"
                                                     value={value}
-                                                    label="ตำแหน่ง"
+                                                    label="ROLE"
                                                     onChange={onChange}
                                                     displayEmpty
                                                     SelectDisplayProps={{
