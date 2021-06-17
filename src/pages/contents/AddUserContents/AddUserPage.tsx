@@ -159,7 +159,7 @@ const AddUserPage = ({ selectedDisabled }: Props) => {
                                             variant="outlined"
                                             id="label-role-id"
                                         >
-                                            ตำแหน่ง
+                                            ROLE
                                         </InputLabel>
                                         <Controller
                                             name="role"
@@ -211,7 +211,7 @@ const AddUserPage = ({ selectedDisabled }: Props) => {
                                         <Controller
                                             name="username"
                                             control={control}
-                                            defaultValue="superadmin"
+                                            defaultValue=""
                                             render={({
                                                 field: { onChange, value },
                                                 fieldState: { error },
@@ -245,7 +245,7 @@ const AddUserPage = ({ selectedDisabled }: Props) => {
                                         <Controller
                                             name="password"
                                             control={control}
-                                            defaultValue="superadmin"
+                                            defaultValue=""
                                             render={({
                                                 field: { onChange, value },
                                                 fieldState: { error },
