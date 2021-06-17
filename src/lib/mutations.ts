@@ -21,3 +21,31 @@ export const SIGN_OUT = gql`
         }
     }
 `;
+
+export const CREATE_USER = gql`
+    mutation CREATE_USER(
+        $username: String!
+        $password: String!
+        $firstname: String!
+        $lastname: String!
+        $tagname: String
+        $role: String!
+    ) {
+        createUser(
+            username: $username
+            password: $password
+            firstname: $firstname
+            lastname: $lastname
+            tagname: $tagname
+            role: $role
+        ) {
+            id
+            username
+            role
+            status
+            createAt
+            updateAt
+            lastActive
+        }
+    }
+`;
