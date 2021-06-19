@@ -16,14 +16,19 @@ const index = () => {
         }
     }, [status]);
 
-    return (
-        <>
-            <Loading />
-            <LayoutContent>
-                <Home />
-            </LayoutContent>
-        </>
-    );
+    const render =
+        status === "NETWORK_ERROR" ? (
+            "Error Connection Failed"
+        ) : (
+            <>
+                <Loading />
+                <LayoutContent>
+                    <Home />
+                </LayoutContent>
+            </>
+        );
+
+    return render;
 };
 
 export default index;
