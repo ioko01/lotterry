@@ -25,11 +25,11 @@ import {
     themeButtonClose,
     themeButtonText,
     themeDanger,
-} from "../../../../styles/style";
-import LottoRadioButton from "../../components/BuyHistoryComponents/LottoRadioButton";
+} from "../../../styles/style";
+import LottoRadioButton from "../components/BuyHistoryComponents/LottoRadioButton";
 import CloseIcon from "@material-ui/icons/Close";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Link from "../../../helpers/Link";
+import Link from "../../helpers/Link";
 
 interface Props {}
 

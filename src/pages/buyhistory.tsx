@@ -1,5 +1,5 @@
 import React from "react";
-import BuyHistoryPage from "./contents/BuyHistoryContents/BuyHistoryPage";
+import BuyHistoryPage from "./contents/BuyHistoryPage";
 import LayoutContent from "./contents/Layout/LayoutContent";
 
 interface Props {}

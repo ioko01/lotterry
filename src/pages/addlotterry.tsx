@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import LayoutContent from "./contents/Layout/LayoutContent";
-import AddUserPage from "./contents/AddUserPage";
+import AddLotterryPage from "./contents/AddLotterryPage";
 import { AuthContext } from "../context/authContextProvider";
 import { useRouter } from "next/router";
 import Loading from "./components/Loading";
@@ -20,7 +20,7 @@ const adduser = () => {
         <>
             <Loading />
             <LayoutContent>
-                <AddUserPage />
+                <AddLotterryPage />
             </LayoutContent>
         </>
     );

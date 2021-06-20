@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutContent from "./contents/Layout/LayoutContent";
-import RewardPage from "./contents/RewardContents/RewardPage";
+import RewardPage from "./contents/RewardPage";
 
 interface Props {}
 

@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutContent from "./contents/Layout/LayoutContent";
-import BalancesPage from "./contents/BalanceContents/BalancesPage";
+import BalancesPage from "./contents/BalancesPage";
 
 interface Props {}
 

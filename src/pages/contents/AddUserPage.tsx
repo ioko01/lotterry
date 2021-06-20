@@ -15,8 +15,8 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { Grid } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
-import { User, UserRoles } from "../../../models/User";
-import { CREATE_USER } from "../../../lib/mutations";
+import { User, UserRoles } from "../../models/User";
+import { CREATE_USER } from "../../lib/mutations";
 
 const useStyled = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,6 +31,10 @@ const useStyled = makeStyles((theme: Theme) =>
         },
         selectOptionForm: {
             marginBlock: theme.spacing(2),
+            MozMarginStart: theme.spacing(2),
+            MozMarginEnd: theme.spacing(2),
+            WebkitMarginEnd: theme.spacing(2),
+            WebkitMarginStart: theme.spacing(2),
         },
         signinHeader: {
             padding: theme.spacing(2),
@@ -80,10 +84,6 @@ const AddUserPage = ({ selectedDisabled }: Props) => {
             setMessage(res.message);
         },
     });
-
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setUserRole(event.target.value as UserRoles);
-    };
 
     const onSubmit = async ({
         username,
