@@ -12,6 +12,7 @@ const useStyled = makeStyles((theme: Theme) =>
         },
         paper: {
             height: "auto",
+            padding: theme.spacing(2),
         },
     })
 );

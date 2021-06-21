@@ -79,7 +79,16 @@ const useStyled = makeStyles((theme: Theme) =>
             },
         },
         canvas: {
+            position: "absolute",
+            top: 2,
+            right: 2,
             filter: "saturate(300%)",
+            msFilter: "saturate(300%)",
+            WebkitFilter: "saturate(300%)",
+        },
+        gridContainer: {
+            padding: theme.spacing(2),
+            justifyContent: "space-evenly",
         },
     })
 );
@@ -184,8 +193,15 @@ const CropperLotterry = () => {
                     &nbsp;IMAGE UPLOADS
                 </Button>
             </label>
-            <Grid container>
-                <Grid item md={4} className={classes.cropGridItem}>
+
+            <Grid container className={classes.gridContainer}>
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={5}
+                    className={classes.cropGridItem}
+                >
                     <div className={classes.app}>
                         <div className={classes.cropContainer}>
                             <Cropper
@@ -198,10 +214,17 @@ const CropperLotterry = () => {
                                 aspect={20 / 20}
                                 onCropChange={setCrop}
                                 onCropComplete={onCropComplete}
+                                onCropAreaChange={onCropComplete}
                                 onZoomChange={setZoom}
                                 maxZoom={20}
                             />
                         </div>
+                        <canvas
+                            width="100%"
+                            height="100%"
+                            id="canvas1"
+                            className={classes.canvas}
+                        />
                         <div className={classes.controls}>
                             <Slider
                                 value={zoom}
@@ -215,15 +238,7 @@ const CropperLotterry = () => {
                         </div>
                     </div>
                 </Grid>
-                <Grid item md={3} className={classes.cropGridItem}>
-                    <canvas
-                        width="100%"
-                        height="100%"
-                        id="canvas1"
-                        className={classes.canvas}
-                    />
-                </Grid>
-                <Grid item md={5} className={classes.cropGridItem}>
+                <Grid item sm={12} md={5} className={classes.cropGridItem}>
                     <Card className={classes.card} elevation={0}>
                         <CardMedia
                             id="img2"
