@@ -137,8 +137,10 @@ const CropperLotterry = () => {
             scanner();
             setQRCodeStatus("SUCCESS");
         } catch (error) {
-            setQRCode(null);
-            setQRCodeStatus("FAIL");
+            if (QRCode) {
+                setQRCode(null);
+                setQRCodeStatus("FAIL");
+            }
         }
     };
 
@@ -147,8 +149,10 @@ const CropperLotterry = () => {
             scanner();
             setQRCodeStatus("SUCCESS");
         } catch (error) {
-            setQRCode(null);
-            setQRCodeStatus("FAIL");
+            if (QRCode) {
+                setQRCode(null);
+                setQRCodeStatus("FAIL");
+            }
         }
     }, [QRCode]);
 
