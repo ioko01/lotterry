@@ -49,3 +49,11 @@ export const CREATE_USER = gql`
         }
     }
 `;
+
+export const SCANNER = gql`
+    mutation SCANNER($data: String!) {
+        scanner(data: $data) {
+            data
+        }
+    }
+`;
